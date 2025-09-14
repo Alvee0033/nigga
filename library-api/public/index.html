@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management API - Simple Interface</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #333;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            background: #f9f9f9;
+        }
+
+        .section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #333;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .btn:hover {
+            background: #5a67d8;
+        }
+
+        .btn-danger {
+            background: #dc2626;
+        }
+
+        .btn-danger:hover {
+            background: #b91c1c;
+        }
+
+        .response {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f0f0f0;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 12px;
+            white-space: pre-wrap;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .success {
+            color: #166534;
+            font-weight: 600;
+        }
+
+        .error {
+            color: #dc2626;
+            font-weight: 600;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 Library Management API</h1>
+            <p>Simple Testing Interface</p>
+        </div>
+
+        <!-- Members Section -->
+        <div class="section">
+            <h2>👥 Members</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Create Member</h3>
+                    <div class="form-group">
+                        <label>Name *</label>
+                        <input type="text" id="createMemberName" placeholder="Enter member name">
+                    </div>
+                    <div class="form-group">
+                        <label>Age *</label>
+                        <input type="number" id="createMemberAge" placeholder="Enter age (12-120)" min="12" max="120">
+                    </div>
+                    <button class="btn" onclick="createMember()">Create Member</button>
+                    <div class="response" id="createMemberResponse">Click "Create Member" to see response</div>
+                </div>
+
+                <div class="card">
+                    <h3>List All Members</h3>
+                    <button class="btn" onclick="listMembers()">List Members</button>
+                    <div class="response" id="listMembersResponse">Click "List Members" to see response</div>
+                </div>
+
+                <div class="card">
+                    <h3>Get Member</h3>
+                    <div class="form-group">
+                        <label>Member ID</label>
+                        <input type="number" id="getMemberId" placeholder="Enter member ID">
+                    </div>
+                    <button class="btn" onclick="getMember()">Get Member</button>
+                    <div class="response" id="getMemberResponse">Click "Get Member" to see response</div>
+                </div>
+
+                <div class="card">
+                    <h3>Delete Member</h3>
+                    <div class="form-group">
+                        <label>Member ID</label>
+                        <input type="number" id="deleteMemberId" placeholder="Enter member ID">
+                    </div>
+                    <button class="btn btn-danger" onclick="deleteMember()">Delete Member</button>
+                    <div class="response" id="deleteMemberResponse">Click "Delete Member" to see response</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Books Section -->
+        <div class="section">
+            <h2>📖 Books</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Add Book</h3>
+                    <div class="form-group">
+                        <label>Title *</label>
+                        <input type="text" id="createBookTitle" placeholder="Enter book title">
+                    </div>
+                    <div class="form-group">
+                        <label>Author *</label>
+                        <input type="text" id="createBookAuthor" placeholder="Enter author name">
+                    </div>
+                    <div class="form-group">
+                        <label>Category</label>
+                        <input type="text" id="createBookCategory" placeholder="Enter category">
+                    </div>
+                    <div class="form-group">
+                        <label>Rating</label>
+                        <input type="number" id="createBookRating" placeholder="Enter rating (0-5)" min="0" max="5" step="0.1">
+                    </div>
+                    <button class="btn" onclick="createBook()">Add Book</button>
+                    <div class="response" id="createBookResponse">Click "Add Book" to see response</div>
+                </div>
+
+                <div class="card">
+                    <h3>List All Books</h3>
+                    <button class="btn" onclick="listBooks()">List Books</button>
+                    <div class="response" id="listBooksResponse">Click "List Books" to see response</div>
+                </div>
+
+                <div class="card">
+                    <h3>Get Book</h3>
+                    <div class="form-group">
+                        <label>Book ID</label>
+                        <input type="number" id="getBookId" placeholder="Enter book ID">
+                    </div>
+                    <button class="btn" onclick="getBook()">Get Book</button>
+                    <div class="response" id="getBookResponse">Click "Get Book" to see response</div>
+                </div>
+
+                <div class="card">
+                    <h3>Delete Book</h3>
+                    <div class="form-group">
+                        <label>Book ID</label>
+                        <input type="number" id="deleteBookId" placeholder="Enter book ID">
+                    </div>
+                    <button class="btn btn-danger" onclick="deleteBook()">Delete Book</button>
+                    <div class="response" id="deleteBookResponse">Click "Delete Book" to see response</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Borrowing Section -->
+        <div class="section">
+            <h2>📚 Borrowing</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Borrow Book</h3>
+                    <div class="form-group">
+                        <label>Member ID</label>
+                        <input type="number" id="borrowMemberId" placeholder="Enter member ID">
+                    </div>
+                    <div class="form-group">
+                        <label>Book ID</label>
+                        <input type="number" id="borrowBookId" placeholder="Enter book ID">
+                    </div>
+                    <button class="btn" onclick="borrowBook()">Borrow Book</button>
+                    <div class="response" id="borrowBookResponse">Click "Borrow Book" to see response</div>
+                </div>
+
+                <div class="card">
+                    <h3>Return Book</h3>
+                    <div class="form-group">
+                        <label>Member ID</label>
+                        <input type="number" id="returnMemberId" placeholder="Enter member ID">
+                    </div>
+                    <div class="form-group">
+                        <label>Book ID</label>
+                        <input type="number" id="returnBookId" placeholder="Enter book ID">
+                    </div>
+                    <button class="btn" onclick="returnBook()">Return Book</button>
+                    <div class="response" id="returnBookResponse">Click "Return Book" to see response</div>
+                </div>
+
+                <div class="card">
+                    <h3>List Borrowed Books</h3>
+                    <button class="btn" onclick="listBorrowedBooks()">List Borrowed Books</button>
+                    <div class="response" id="listBorrowedBooksResponse">Click "List Borrowed Books" to see response</div>
+                </div>
+
+                <div class="card">
+                    <h3>Get Overdue Books</h3>
+                    <button class="btn" onclick="getOverdueBooks()">Get Overdue Books</button>
+                    <div class="response" id="getOverdueBooksResponse">Click "Get Overdue Books" to see response</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reservations Section -->
+        <div class="section">
+            <h2>🎫 Reservations</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Create Reservation</h3>
+                    <div class="form-group">
+                        <label>Member ID</label>
+                        <input type="number" id="reservationMemberId" placeholder="Enter member ID">
+                    </div>
+                    <div class="form-group">
+                        <label>Book ID</label>
+                        <input type="number" id="reservationBookId" placeholder="Enter book ID">
+                    </div>
+                    <div class="form-group">
+                        <label>Reservation Type</label>
+                        <select id="reservationType">
+                            <option value="standard">Standard</option>
+                            <option value="premium">Premium</option>
+                            <option value="group">Group</option>
+                        </select>
+                    </div>
+                    <button class="btn" onclick="createReservation()">Create Reservation</button>
+                    <div class="response" id="createReservationResponse">Click "Create Reservation" to see response</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:3000/api';
+        
+        // Utility function to make API calls
+        async function apiCall(url, options = {}) {
+            try {
+                const response = await fetch(url, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        ...options.headers
+                    },
+                    ...options
+                });
+                
+                const data = await response.json();
+                return {
+                    status: response.status,
+                    data: data,
+                    success: response.ok
+                };
+            } catch (error) {
+                return {
+                    status: 0,
+                    data: { error: error.message },
+                    success: false
+                };
+            }
+        }
+
+        // Utility function to display response
+        function displayResponse(elementId, response) {
+            const element = document.getElementById(elementId);
+            const statusClass = response.success ? 'success' : 'error';
+            element.innerHTML = `<span class="${statusClass}">Status: ${response.status}</span>\n${JSON.stringify(response.data, null, 2)}`;
+        }
+
+        // Member functions
+        async function createMember() {
+            const data = {
+                name: document.getElementById('createMemberName').value,
+                age: parseInt(document.getElementById('createMemberAge').value)
+            };
+            
+            const response = await apiCall(`${API_BASE}/members`, {
+                method: 'POST',
+                body: JSON.stringify(data)
+            });
+            
+            displayResponse('createMemberResponse', response);
+        }
+
+        async function listMembers() {
+            const response = await apiCall(`${API_BASE}/members`);
+            displayResponse('listMembersResponse', response);
+        }
+
+        async function getMember() {
+            const memberId = document.getElementById('getMemberId').value;
+            const response = await apiCall(`${API_BASE}/members/${memberId}`);
+            displayResponse('getMemberResponse', response);
+        }
+
+        async function deleteMember() {
+            const memberId = document.getElementById('deleteMemberId').value;
+            const response = await apiCall(`${API_BASE}/members/${memberId}`, {
+                method: 'DELETE'
+            });
+            
+            displayResponse('deleteMemberResponse', response);
+        }
+
+        // Book functions
+        async function createBook() {
+            const data = {
+                title: document.getElementById('createBookTitle').value,
+                author: document.getElementById('createBookAuthor').value,
+                category: document.getElementById('createBookCategory').value || undefined,
+                rating: document.getElementById('createBookRating').value ? parseFloat(document.getElementById('createBookRating').value) : undefined
+            };
+            
+            const response = await apiCall(`${API_BASE}/books`, {
+                method: 'POST',
+                body: JSON.stringify(data)
+            });
+            
+            displayResponse('createBookResponse', response);
+        }
+
+        async function listBooks() {
+            const response = await apiCall(`${API_BASE}/books`);
+            displayResponse('listBooksResponse', response);
+        }
+
+        async function getBook() {
+            const bookId = document.getElementById('getBookId').value;
+            const response = await apiCall(`${API_BASE}/books/${bookId}`);
+            displayResponse('getBookResponse', response);
+        }
+
+        async function deleteBook() {
+            const bookId = document.getElementById('deleteBookId').value;
+            const response = await apiCall(`${API_BASE}/books/${bookId}`, {
+                method: 'DELETE'
+            });
+            
+            displayResponse('deleteBookResponse', response);
+        }
+
+        // Borrowing functions
+        async function borrowBook() {
+            const data = {
+                member_id: parseInt(document.getElementById('borrowMemberId').value),
+                book_id: parseInt(document.getElementById('borrowBookId').value)
+            };
+            
+            const response = await apiCall(`${API_BASE}/borrow`, {
+                method: 'POST',
+                body: JSON.stringify(data)
+            });
+            
+            displayResponse('borrowBookResponse', response);
+        }
+
+        async function returnBook() {
+            const data = {
+                member_id: parseInt(document.getElementById('returnMemberId').value),
+                book_id: parseInt(document.getElementById('returnBookId').value)
+            };
+            
+            const response = await apiCall(`${API_BASE}/return`, {
+                method: 'POST',
+                body: JSON.stringify(data)
+            });
+            
+            displayResponse('returnBookResponse', response);
+        }
+
+        async function listBorrowedBooks() {
+            const response = await apiCall(`${API_BASE}/borrowed`);
+            displayResponse('listBorrowedBooksResponse', response);
+        }
+
+        async function getOverdueBooks() {
+            const response = await apiCall(`${API_BASE}/borrow/overdue`);
+            displayResponse('getOverdueBooksResponse', response);
+        }
+
+        // Reservation functions
+        async function createReservation() {
+            const data = {
+                member_id: parseInt(document.getElementById('reservationMemberId').value),
+                book_id: parseInt(document.getElementById('reservationBookId').value),
+                reservation_type: document.getElementById('reservationType').value
+            };
+            
+            const response = await apiCall(`${API_BASE}/reservations`, {
+                method: 'POST',
+                body: JSON.stringify(data)
+            });
+            
+            displayResponse('createReservationResponse', response);
+        }
+    </script>
+</body>
+</html>

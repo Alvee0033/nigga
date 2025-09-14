@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tab Test</title>
+    <style>
+        .tab { padding: 10px; cursor: pointer; border: 1px solid #ccc; display: inline-block; margin: 5px; }
+        .tab.active { background: #007bff; color: white; }
+        .tab-content { display: none; padding: 20px; border: 1px solid #ccc; margin-top: 10px; }
+        .tab-content.active { display: block; }
+    </style>
+</head>
+<body>
+    <h1>Tab Test</h1>
+    
+    <div class="tab active" onclick="showTab('overview')">Overview</div>
+    <div class="tab" onclick="showTab('members')">Members</div>
+    <div class="tab" onclick="showTab('books')">Books</div>
+    
+    <div id="overview" class="tab-content active">
+        <h2>Overview Content</h2>
+        <p>This is the overview tab content.</p>
+    </div>
+    
+    <div id="members" class="tab-content">
+        <h2>Members Content</h2>
+        <p>This is the members tab content.</p>
+    </div>
+    
+    <div id="books" class="tab-content">
+        <h2>Books Content</h2>
+        <p>This is the books tab content.</p>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            console.log('Switching to tab:', tabName);
+            
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            const targetContent = document.getElementById(tabName);
+            if (targetContent) {
+                targetContent.classList.add('active');
+                console.log('Tab content shown:', tabName);
+            } else {
+                console.error('Tab content not found:', tabName);
+                alert('Tab not found: ' + tabName);
+            }
+            
+            // Add active class to clicked tab
+            document.querySelectorAll('.tab').forEach(tab => {
+                if (tab.textContent.trim().toLowerCase() === tabName.toLowerCase()) {
+                    tab.classList.add('active');
+                    console.log('Tab activated:', tab.textContent.trim());
+                }
+            });
+        }
+    </script>
+</body>
+</html>
