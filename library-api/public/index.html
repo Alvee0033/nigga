@@ -3,152 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Library Management API - Simple Interface</title>
+    <title>Library Management API</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            margin: 0;
             padding: 20px;
+            background: #f5f5f5;
         }
-
         .container {
             max-width: 1200px;
             margin: 0 auto;
             background: white;
-            border-radius: 16px;
-            padding: 30px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-            color: #333;
-        }
-
-        .header h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        .header p {
-            font-size: 1.1rem;
-            color: #666;
-        }
-
-        .section {
-            margin-bottom: 40px;
             padding: 20px;
-            border: 1px solid #e0e0e0;
-            border-radius: 12px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
             background: #f9f9f9;
         }
-
         .section h2 {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            color: #333;
-            border-bottom: 2px solid #667eea;
+            margin-top: 0;
+            color: #555;
+            border-bottom: 2px solid #007bff;
             padding-bottom: 10px;
         }
-
         .form-group {
             margin-bottom: 15px;
         }
-
-        .form-group label {
+        label {
             display: block;
-            font-weight: 500;
             margin-bottom: 5px;
-            color: #555;
+            font-weight: bold;
         }
-
-        .form-group input,
-        .form-group select {
+        input, select {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            font-size: 14px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
         }
-
-        .btn {
-            background: #667eea;
+        button {
+            background: #007bff;
             color: white;
             border: none;
-            padding: 12px 24px;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 4px;
             cursor: pointer;
             margin-right: 10px;
             margin-bottom: 10px;
         }
-
-        .btn:hover {
-            background: #5a67d8;
+        button:hover {
+            background: #0056b3;
         }
-
         .btn-danger {
-            background: #dc2626;
+            background: #dc3545;
         }
-
         .btn-danger:hover {
-            background: #b91c1c;
+            background: #c82333;
         }
-
         .response {
             margin-top: 15px;
             padding: 15px;
-            background: #f0f0f0;
-            border-radius: 6px;
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
             font-family: monospace;
             font-size: 12px;
             white-space: pre-wrap;
             max-height: 200px;
             overflow-y: auto;
         }
-
         .success {
-            color: #166534;
-            font-weight: 600;
+            color: #28a745;
+            font-weight: bold;
         }
-
         .error {
-            color: #dc2626;
-            font-weight: 600;
+            color: #dc3545;
+            font-weight: bold;
         }
-
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
         }
-
         .card {
             background: white;
-            padding: 20px;
-            border-radius: 8px;
-            border: 1px solid #e0e0e0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <h1>📚 Library Management API</h1>
-            <p>Simple Testing Interface</p>
-        </div>
+        <h1>📚 Library Management API</h1>
 
         <!-- Members Section -->
         <div class="section">
@@ -162,15 +120,15 @@
                     </div>
                     <div class="form-group">
                         <label>Age *</label>
-                        <input type="number" id="createMemberAge" placeholder="Enter age (12-120)" min="12" max="120">
+                        <input type="number" id="createMemberAge" placeholder="Enter age" min="12" max="120">
                     </div>
-                    <button class="btn" onclick="createMember()">Create Member</button>
+                    <button onclick="createMember()">Create Member</button>
                     <div class="response" id="createMemberResponse">Click "Create Member" to see response</div>
                 </div>
 
                 <div class="card">
                     <h3>List All Members</h3>
-                    <button class="btn" onclick="listMembers()">List Members</button>
+                    <button onclick="listMembers()">List Members</button>
                     <div class="response" id="listMembersResponse">Click "List Members" to see response</div>
                 </div>
 
@@ -180,7 +138,7 @@
                         <label>Member ID</label>
                         <input type="number" id="getMemberId" placeholder="Enter member ID">
                     </div>
-                    <button class="btn" onclick="getMember()">Get Member</button>
+                    <button onclick="getMember()">Get Member</button>
                     <div class="response" id="getMemberResponse">Click "Get Member" to see response</div>
                 </div>
 
@@ -190,7 +148,7 @@
                         <label>Member ID</label>
                         <input type="number" id="deleteMemberId" placeholder="Enter member ID">
                     </div>
-                    <button class="btn btn-danger" onclick="deleteMember()">Delete Member</button>
+                    <button class="btn-danger" onclick="deleteMember()">Delete Member</button>
                     <div class="response" id="deleteMemberResponse">Click "Delete Member" to see response</div>
                 </div>
             </div>
@@ -218,13 +176,13 @@
                         <label>Rating</label>
                         <input type="number" id="createBookRating" placeholder="Enter rating (0-5)" min="0" max="5" step="0.1">
                     </div>
-                    <button class="btn" onclick="createBook()">Add Book</button>
+                    <button onclick="createBook()">Add Book</button>
                     <div class="response" id="createBookResponse">Click "Add Book" to see response</div>
                 </div>
 
                 <div class="card">
                     <h3>List All Books</h3>
-                    <button class="btn" onclick="listBooks()">List Books</button>
+                    <button onclick="listBooks()">List Books</button>
                     <div class="response" id="listBooksResponse">Click "List Books" to see response</div>
                 </div>
 
@@ -234,7 +192,7 @@
                         <label>Book ID</label>
                         <input type="number" id="getBookId" placeholder="Enter book ID">
                     </div>
-                    <button class="btn" onclick="getBook()">Get Book</button>
+                    <button onclick="getBook()">Get Book</button>
                     <div class="response" id="getBookResponse">Click "Get Book" to see response</div>
                 </div>
 
@@ -244,7 +202,7 @@
                         <label>Book ID</label>
                         <input type="number" id="deleteBookId" placeholder="Enter book ID">
                     </div>
-                    <button class="btn btn-danger" onclick="deleteBook()">Delete Book</button>
+                    <button class="btn-danger" onclick="deleteBook()">Delete Book</button>
                     <div class="response" id="deleteBookResponse">Click "Delete Book" to see response</div>
                 </div>
             </div>
@@ -264,7 +222,7 @@
                         <label>Book ID</label>
                         <input type="number" id="borrowBookId" placeholder="Enter book ID">
                     </div>
-                    <button class="btn" onclick="borrowBook()">Borrow Book</button>
+                    <button onclick="borrowBook()">Borrow Book</button>
                     <div class="response" id="borrowBookResponse">Click "Borrow Book" to see response</div>
                 </div>
 
@@ -278,19 +236,19 @@
                         <label>Book ID</label>
                         <input type="number" id="returnBookId" placeholder="Enter book ID">
                     </div>
-                    <button class="btn" onclick="returnBook()">Return Book</button>
+                    <button onclick="returnBook()">Return Book</button>
                     <div class="response" id="returnBookResponse">Click "Return Book" to see response</div>
                 </div>
 
                 <div class="card">
                     <h3>List Borrowed Books</h3>
-                    <button class="btn" onclick="listBorrowedBooks()">List Borrowed Books</button>
+                    <button onclick="listBorrowedBooks()">List Borrowed Books</button>
                     <div class="response" id="listBorrowedBooksResponse">Click "List Borrowed Books" to see response</div>
                 </div>
 
                 <div class="card">
                     <h3>Get Overdue Books</h3>
-                    <button class="btn" onclick="getOverdueBooks()">Get Overdue Books</button>
+                    <button onclick="getOverdueBooks()">Get Overdue Books</button>
                     <div class="response" id="getOverdueBooksResponse">Click "Get Overdue Books" to see response</div>
                 </div>
             </div>
@@ -318,7 +276,7 @@
                             <option value="group">Group</option>
                         </select>
                     </div>
-                    <button class="btn" onclick="createReservation()">Create Reservation</button>
+                    <button onclick="createReservation()">Create Reservation</button>
                     <div class="response" id="createReservationResponse">Click "Create Reservation" to see response</div>
                 </div>
             </div>
@@ -327,10 +285,16 @@
 
     <script>
         const API_BASE = 'http://localhost:3000/api';
-        
-        // Utility function to make API calls
+
+        function showResponse(elementId, success, status, data) {
+            const element = document.getElementById(elementId);
+            const statusClass = success ? 'success' : 'error';
+            element.innerHTML = `<span class="${statusClass}">Status: ${status}</span>\n${JSON.stringify(data, null, 2)}`;
+        }
+
         async function apiCall(url, options = {}) {
             try {
+                console.log(`Making API call to: ${url}`, options); // Debugging log
                 const response = await fetch(url, {
                     headers: {
                         'Content-Type': 'application/json',
@@ -338,154 +302,212 @@
                     },
                     ...options
                 });
-                
                 const data = await response.json();
-                return {
-                    status: response.status,
-                    data: data,
-                    success: response.ok
-                };
+                console.log(`Response from ${url}:`, { status: response.status, data }); // Debugging log
+                return { success: response.ok, status: response.status, data };
             } catch (error) {
-                return {
-                    status: 0,
-                    data: { error: error.message },
-                    success: false
-                };
+                console.error(`Error in API call to ${url}:`, error); // Log error
+                return { success: false, status: 0, data: { error: error.message } };
             }
-        }
-
-        // Utility function to display response
-        function displayResponse(elementId, response) {
-            const element = document.getElementById(elementId);
-            const statusClass = response.success ? 'success' : 'error';
-            element.innerHTML = `<span class="${statusClass}">Status: ${response.status}</span>\n${JSON.stringify(response.data, null, 2)}`;
         }
 
         // Member functions
         async function createMember() {
-            const data = {
-                name: document.getElementById('createMemberName').value,
-                age: parseInt(document.getElementById('createMemberAge').value)
-            };
+            const name = document.getElementById('createMemberName').value.trim();
+            const age = document.getElementById('createMemberAge').value;
             
-            const response = await apiCall(`${API_BASE}/members`, {
+            if (!name || !age) {
+                showResponse('createMemberResponse', false, 400, { error: 'Name and age are required' });
+                return;
+            }
+
+            const result = await apiCall(`${API_BASE}/members`, {
                 method: 'POST',
-                body: JSON.stringify(data)
+                body: JSON.stringify({ name, age: parseInt(age) })
             });
-            
-            displayResponse('createMemberResponse', response);
+
+            showResponse('createMemberResponse', result.success, result.status, result.data);
+            if (result.success) {
+                document.getElementById('createMemberName').value = '';
+                document.getElementById('createMemberAge').value = '';
+            }
         }
 
         async function listMembers() {
-            const response = await apiCall(`${API_BASE}/members`);
-            displayResponse('listMembersResponse', response);
+            const result = await apiCall(`${API_BASE}/members`);
+            showResponse('listMembersResponse', result.success, result.status, result.data);
         }
 
         async function getMember() {
             const memberId = document.getElementById('getMemberId').value;
-            const response = await apiCall(`${API_BASE}/members/${memberId}`);
-            displayResponse('getMemberResponse', response);
+            if (!memberId) {
+                showResponse('getMemberResponse', false, 400, { error: 'Member ID is required' });
+                return;
+            }
+            
+            const result = await apiCall(`${API_BASE}/members/${memberId}`);
+            showResponse('getMemberResponse', result.success, result.status, result.data);
+            if (result.success) {
+                document.getElementById('getMemberId').value = '';
+            }
         }
 
         async function deleteMember() {
             const memberId = document.getElementById('deleteMemberId').value;
-            const response = await apiCall(`${API_BASE}/members/${memberId}`, {
-                method: 'DELETE'
-            });
+            if (!memberId) {
+                showResponse('deleteMemberResponse', false, 400, { error: 'Member ID is required' });
+                return;
+            }
             
-            displayResponse('deleteMemberResponse', response);
+            const result = await apiCall(`${API_BASE}/members/${memberId}`, { method: 'DELETE' });
+            showResponse('deleteMemberResponse', result.success, result.status, result.data);
+            if (result.success) {
+                document.getElementById('deleteMemberId').value = '';
+            }
         }
 
         // Book functions
         async function createBook() {
+            const title = document.getElementById('createBookTitle').value.trim();
+            const author = document.getElementById('createBookAuthor').value.trim();
+            
+            if (!title || !author) {
+                showResponse('createBookResponse', false, 400, { error: 'Title and author are required' });
+                return;
+            }
+
             const data = {
-                title: document.getElementById('createBookTitle').value,
-                author: document.getElementById('createBookAuthor').value,
-                category: document.getElementById('createBookCategory').value || undefined,
+                title,
+                author,
+                category: document.getElementById('createBookCategory').value.trim() || undefined,
                 rating: document.getElementById('createBookRating').value ? parseFloat(document.getElementById('createBookRating').value) : undefined
             };
-            
-            const response = await apiCall(`${API_BASE}/books`, {
+
+            const result = await apiCall(`${API_BASE}/books`, {
                 method: 'POST',
                 body: JSON.stringify(data)
             });
             
-            displayResponse('createBookResponse', response);
+            showResponse('createBookResponse', result.success, result.status, result.data);
+            if (result.success) {
+                document.getElementById('createBookTitle').value = '';
+                document.getElementById('createBookAuthor').value = '';
+                document.getElementById('createBookCategory').value = '';
+                document.getElementById('createBookRating').value = '';
+            }
         }
 
         async function listBooks() {
-            const response = await apiCall(`${API_BASE}/books`);
-            displayResponse('listBooksResponse', response);
+            const result = await apiCall(`${API_BASE}/books`);
+            showResponse('listBooksResponse', result.success, result.status, result.data);
         }
 
         async function getBook() {
             const bookId = document.getElementById('getBookId').value;
-            const response = await apiCall(`${API_BASE}/books/${bookId}`);
-            displayResponse('getBookResponse', response);
+            if (!bookId) {
+                showResponse('getBookResponse', false, 400, { error: 'Book ID is required' });
+                return;
+            }
+            
+            const result = await apiCall(`${API_BASE}/books/${bookId}`);
+            showResponse('getBookResponse', result.success, result.status, result.data);
+            if (result.success) {
+                document.getElementById('getBookId').value = '';
+            }
         }
 
         async function deleteBook() {
             const bookId = document.getElementById('deleteBookId').value;
-            const response = await apiCall(`${API_BASE}/books/${bookId}`, {
-                method: 'DELETE'
-            });
+            if (!bookId) {
+                showResponse('deleteBookResponse', false, 400, { error: 'Book ID is required' });
+                return;
+            }
             
-            displayResponse('deleteBookResponse', response);
+            const result = await apiCall(`${API_BASE}/books/${bookId}`, { method: 'DELETE' });
+            showResponse('deleteBookResponse', result.success, result.status, result.data);
+            if (result.success) {
+                document.getElementById('deleteBookId').value = '';
+            }
         }
 
         // Borrowing functions
         async function borrowBook() {
-            const data = {
-                member_id: parseInt(document.getElementById('borrowMemberId').value),
-                book_id: parseInt(document.getElementById('borrowBookId').value)
-            };
+            const memberId = document.getElementById('borrowMemberId').value;
+            const bookId = document.getElementById('borrowBookId').value;
             
-            const response = await apiCall(`${API_BASE}/borrow`, {
+            if (!memberId || !bookId) {
+                showResponse('borrowBookResponse', false, 400, { error: 'Member ID and Book ID are required' });
+                return;
+            }
+
+            const result = await apiCall(`${API_BASE}/borrow`, {
                 method: 'POST',
-                body: JSON.stringify(data)
+                body: JSON.stringify({ member_id: parseInt(memberId), book_id: parseInt(bookId) })
             });
             
-            displayResponse('borrowBookResponse', response);
+            showResponse('borrowBookResponse', result.success, result.status, result.data);
+            if (result.success) {
+                document.getElementById('borrowMemberId').value = '';
+                document.getElementById('borrowBookId').value = '';
+            }
         }
 
         async function returnBook() {
-            const data = {
-                member_id: parseInt(document.getElementById('returnMemberId').value),
-                book_id: parseInt(document.getElementById('returnBookId').value)
-            };
+            const memberId = document.getElementById('returnMemberId').value;
+            const bookId = document.getElementById('returnBookId').value;
             
-            const response = await apiCall(`${API_BASE}/return`, {
+            if (!memberId || !bookId) {
+                showResponse('returnBookResponse', false, 400, { error: 'Member ID and Book ID are required' });
+                return;
+            }
+
+            const result = await apiCall(`${API_BASE}/return`, {
                 method: 'POST',
-                body: JSON.stringify(data)
+                body: JSON.stringify({ member_id: parseInt(memberId), book_id: parseInt(bookId) })
             });
             
-            displayResponse('returnBookResponse', response);
+            showResponse('returnBookResponse', result.success, result.status, result.data);
+            if (result.success) {
+                document.getElementById('returnMemberId').value = '';
+                document.getElementById('returnBookId').value = '';
+            }
         }
 
         async function listBorrowedBooks() {
-            const response = await apiCall(`${API_BASE}/borrowed`);
-            displayResponse('listBorrowedBooksResponse', response);
+            const result = await apiCall(`${API_BASE}/borrowed`);
+            showResponse('listBorrowedBooksResponse', result.success, result.status, result.data);
         }
 
         async function getOverdueBooks() {
-            const response = await apiCall(`${API_BASE}/borrow/overdue`);
-            displayResponse('getOverdueBooksResponse', response);
+            const result = await apiCall(`${API_BASE}/borrow/overdue`);
+            showResponse('getOverdueBooksResponse', result.success, result.status, result.data);
         }
 
         // Reservation functions
         async function createReservation() {
-            const data = {
-                member_id: parseInt(document.getElementById('reservationMemberId').value),
-                book_id: parseInt(document.getElementById('reservationBookId').value),
-                reservation_type: document.getElementById('reservationType').value
-            };
+            const memberId = document.getElementById('reservationMemberId').value;
+            const bookId = document.getElementById('reservationBookId').value;
             
-            const response = await apiCall(`${API_BASE}/reservations`, {
+            if (!memberId || !bookId) {
+                showResponse('createReservationResponse', false, 400, { error: 'Member ID and Book ID are required' });
+                return;
+            }
+
+            const result = await apiCall(`${API_BASE}/reservations`, {
                 method: 'POST',
-                body: JSON.stringify(data)
+                body: JSON.stringify({
+                    member_id: parseInt(memberId),
+                    book_id: parseInt(bookId),
+                    reservation_type: document.getElementById('reservationType').value
+                })
             });
             
-            displayResponse('createReservationResponse', response);
+            showResponse('createReservationResponse', result.success, result.status, result.data);
+            if (result.success) {
+                document.getElementById('reservationMemberId').value = '';
+                document.getElementById('reservationBookId').value = '';
+                document.getElementById('reservationType').value = 'standard';
+            }
         }
     </script>
 </body>
